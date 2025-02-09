@@ -4,27 +4,28 @@ using Microsoft.Data.SqlClient;
 using Dapper;
 using SalesDatePrediction.Api.Dtos;
 
+using Microsoft.AspNetCore.Mvc;
+using SalesDatePrediction.Api.Services;
+
 namespace SalesDatePrediction.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class EmpleadoController : ControllerBase
     {
-        private readonly string? _connectionString;
+        private readonly EmpleadoService _empleadoService;
 
-        public EmpleadoController(IConfiguration configuration)
+        public EmpleadoController(EmpleadoService empleadoService)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _empleadoService = empleadoService;
         }
 
         [HttpGet]
         public IActionResult GetEmpleados()
         {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                var empleados = connection.Query<EmpleadoDto>("SELECT \r\n    empid As 'Empid', \r\n    firstname + ' ' + lastname AS FullName\r\nFROM HR.Employees;").ToList();
-                return Ok(empleados);
-            }
+            var empleados = _empleadoService.ObtenerEmpleados();
+            return Ok(empleados);
         }
     }
 }
+

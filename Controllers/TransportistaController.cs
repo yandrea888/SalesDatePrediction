@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Data.SqlClient;
-using Dapper;
-using SalesDatePrediction.Api.Dtos;
+using SalesDatePrediction.Api.Services;
 
 namespace SalesDatePrediction.Api.Controllers
 {
@@ -10,23 +7,18 @@ namespace SalesDatePrediction.Api.Controllers
     [ApiController]
     public class TransportistaController : ControllerBase
     {
-        private readonly string? _connectionString;
+        private readonly TransportistaService _transportistaService;
 
-        public TransportistaController(IConfiguration configuration)
+        public TransportistaController(TransportistaService transportistaService)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _transportistaService = transportistaService;
         }
 
         [HttpGet]
         public IActionResult GetTransportistas()
         {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                var transportistas = connection.Query<TransportistaDto>(
-                    "SELECT \r\n    shipperid As 'Shipperid', \r\n    companyname As 'Companyname'\r\nFROM Sales.Shippers;"
-                ).ToList();
-                return Ok(transportistas);
-            }
+            var transportistas = _transportistaService.GetTransportistas();
+            return Ok(transportistas);
         }
     }
 }

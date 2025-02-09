@@ -9,15 +9,14 @@ namespace SalesDatePrediction.Tests
     {
         [Fact]
         public void GetCustomers_ReturnsListOfCustomers()
-        {            
+        {
             var controller = new CustomerController();
-           
+
             var result = controller.GetCustomers();
-            
-            var okResult = Assert.IsType<OkObjectResult>(result);  
-            var customers = Assert.IsType<List<Customer>>(okResult.Value);  
-            Assert.NotEmpty(customers);  
+
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var customers = Assert.IsType<List<Customer>>(okResult.Value);
+            Assert.NotEmpty(customers);
         }
     }
 }
-

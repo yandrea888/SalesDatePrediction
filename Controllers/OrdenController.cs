@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Data.SqlClient;
-using Dapper;
-
+using SalesDatePrediction.Api.Services;
 
 namespace SalesDatePrediction.Api.Controllers
 {
@@ -10,38 +7,25 @@ namespace SalesDatePrediction.Api.Controllers
     [ApiController]
     public class OrdenController : ControllerBase
     {
-        private readonly string? _connectionString;
+        private readonly OrdenService _ordenService;
 
-        public OrdenController(IConfiguration configuration)
+        public OrdenController(OrdenService ordenService)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _ordenService = ordenService;
         }
 
         [HttpGet("{customerId}")]
         public IActionResult GetOrdenesPorCliente(int customerId)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            var ordenes = _ordenService.ObtenerOrdenesPorCliente(customerId);
+
+            if (ordenes == null || !ordenes.Any())
             {
-                var query = @"
-                    SELECT 
-                        orderid AS OrderId, 
-                        requireddate AS RequiredDate, 
-                        shippeddate AS ShippedDate, 
-                        shipname AS ShipName, 
-                        shipaddress AS ShipAddress, 
-                        shipcity AS ShipCity 
-                    FROM Sales.Orders
-                    WHERE custid = @CustomerId";
-
-                var ordenes = connection.Query(query, new { CustomerId = customerId }).ToList();
-
-                if (ordenes.Count == 0)
-                {
-                    return NotFound($"No se encontraron órdenes para el cliente con ID {customerId}.");
-                }
-
-                return Ok(ordenes);
+                return NotFound($"No se encontraron órdenes para el cliente con ID {customerId}.");
             }
+
+            return Ok(ordenes);
         }
     }
 }
+

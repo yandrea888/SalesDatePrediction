@@ -1,3 +1,6 @@
+using SalesDatePrediction.Api.Repositories;
+using SalesDatePrediction.Api.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +10,49 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddScoped<ClienteRepository>(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var connectionString = configuration.GetConnectionString("DefaultConnection");
+    return new ClienteRepository(connectionString);
+});
+builder.Services.AddScoped<EmpleadoRepository>(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var connectionString = configuration.GetConnectionString("DefaultConnection");
+    return new EmpleadoRepository(connectionString);
+});
+builder.Services.AddScoped(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var connectionString = configuration.GetConnectionString("DefaultConnection");
+    return new OrdenRepository(connectionString);
+});
+builder.Services.AddScoped(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var connectionString = configuration.GetConnectionString("DefaultConnection");
+    return new OrdenNuevaRepository(connectionString);  
+});
+builder.Services.AddScoped(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var connectionString = configuration.GetConnectionString("DefaultConnection");
+    return new ProductoRepository(connectionString);  
+});
+builder.Services.AddScoped(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var connectionString = configuration.GetConnectionString("DefaultConnection");
+    return new TransportistaRepository(connectionString);
+});
+
+builder.Services.AddScoped<ClienteService>();
+builder.Services.AddScoped<EmpleadoService>();
+builder.Services.AddScoped<OrdenService>();
+builder.Services.AddScoped<OrdenNuevaService>();
+builder.Services.AddScoped<ProductoService>();
+builder.Services.AddScoped<TransportistaService>();
 
 var app = builder.Build();
 

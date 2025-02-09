@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using Dapper;
 using SalesDatePrediction.Api.Dtos;
+using System;
 
 namespace SalesDatePrediction.Api.Controllers
 {
@@ -10,96 +9,26 @@ namespace SalesDatePrediction.Api.Controllers
     [ApiController]
     public class OrdenNuevaController : ControllerBase
     {
-        private readonly string? _connectionString;
+        private readonly OrdenNuevaService _ordenService;
 
-        public OrdenNuevaController(IConfiguration configuration)
+        public OrdenNuevaController(OrdenNuevaService ordenService)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _ordenService = ordenService;
         }
 
         [HttpPost]
-        public IActionResult CrearOrden([FromBody] OrdenNuevaDto nuevaOrden)
+        public IActionResult CrearOrden()
         {
-            const string query = @"
-                
-                DECLARE @NewOrderId INT;
-
-
-                INSERT INTO Sales.Orders (
-                    custid,
-                    empid, 
-                    shipperid, 
-                    shipname, 
-                    shipaddress, 
-                    shipcity, 
-                    orderdate, 
-                    requireddate, 
-                    shippeddate, 
-                    freight, 
-                    shipcountry
-                )
-                VALUES (
-                    77,
-                    1,                
-                    2,                
-                    'Sample Shipname',
-                    '123 Main St',    
-                    'Sample City',    
-                    GETDATE(),        
-                    DATEADD(DAY, 7, GETDATE()), 
-                    NULL,             
-                    50.00,            
-                    'Sample Country'  
-                );
-
-                SET @NewOrderId = SCOPE_IDENTITY();
-
-
-                INSERT INTO Sales.OrderDetails (
-                    orderid, 
-                    productid, 
-                    unitprice, 
-                    qty, 
-                    discount
-                )
-                VALUES 
-                    (@NewOrderId, 1, 20.00, 2, 0.05),  
-                    (@NewOrderId, 2, 15.00, 1, 0.00);  
-
-
-                SELECT @NewOrderId AS NewOrderId;
-
-            ";
-
-            using (var connection = new SqlConnection(_connectionString))
+            try
             {
-                connection.Open();
-                using (var transaction = connection.BeginTransaction())
-                {
-                    try
-                    {
-                        var orderId = connection.ExecuteScalar<int>(
-                            query,
-                            new
-                            {
-                                nuevaOrden.CustomerId,
-                                nuevaOrden.OrderDate,
-                                nuevaOrden.ProductId,
-                                nuevaOrden.Quantity
-                            },
-                            transaction: transaction
-                        );
-
-                        transaction.Commit();
-                        return Ok(new { Message = "Orden creada con éxito", OrderId = orderId });
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        return BadRequest(new { Message = "Error al crear la orden", Error = ex.Message });
-                    }
-                }
+                int newOrderId = _ordenService.CrearOrden();
+                return Ok(new { message = "Orden creada exitosamente", newOrderId });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Error al crear la orden", error = ex.Message });
             }
         }
     }
 }
+
