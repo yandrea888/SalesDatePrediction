@@ -1,0 +1,45 @@
+<h2>Lista de Órdenes</h2>
+<div class="table-container">
+  <mat-form-field appearance="outline">
+    <mat-label>Filtrar</mat-label>
+    <input matInput (keyup)="aplicarFiltro($event)" placeholder="Buscar en la tabla">
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <!-- Columna: ID Orden -->
+    <ng-container matColumnDef="OrderId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID Orden</mat-header-cell>
+      <mat-cell *matCellDef="let orden">{{ orden.OrderId }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="RequiredDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Requerida</mat-header-cell>
+      <mat-cell *matCellDef="let orden">{{ orden.RequiredDate | date }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ShippedDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Envío</mat-header-cell>
+      <mat-cell *matCellDef="let orden">{{ orden.ShippedDate | date }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ShipName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Envío</mat-header-cell>
+      <mat-cell *matCellDef="let orden">{{ orden.ShipName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ShipAddress">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Dirección Envío</mat-header-cell>
+      <mat-cell *matCellDef="let orden">{{ orden.ShipAddress }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ShipCity">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Ciudad Envío</mat-header-cell>
+      <mat-cell *matCellDef="let orden">{{ orden.ShipCity }}</mat-cell>
+    </ng-container>
+
+    <!-- Fila de encabezado -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <!-- Filas de datos -->
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </table>
+</div>

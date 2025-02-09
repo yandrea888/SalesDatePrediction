@@ -1,0 +1,14 @@
+<h2>Lista de Clientes</h2>
+<ul *ngIf="clientes.length > 0; else noData">
+  <li *ngFor="let cliente of clientes">
+    <strong>{{ cliente.CustomerName }}</strong> -
+    Última orden: {{ cliente.LastOrderDate | date:'shortDate' }} -
+    Próxima orden: {{ cliente.NextPredictedOrder | date:'shortDate' }}
+  </li>
+</ul>
+
+<ng-template #noData>
+  <p>No hay clientes disponibles.</p>
+</ng-template>
+
+

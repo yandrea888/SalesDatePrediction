@@ -46,6 +46,15 @@ builder.Services.AddScoped(provider =>
     var connectionString = configuration.GetConnectionString("DefaultConnection");
     return new TransportistaRepository(connectionString);
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirTodo", policy =>
+    {
+        policy.AllowAnyOrigin()  
+              .AllowAnyMethod()  
+              .AllowAnyHeader(); 
+    });
+});
 
 builder.Services.AddScoped<ClienteService>();
 builder.Services.AddScoped<EmpleadoService>();
@@ -53,6 +62,7 @@ builder.Services.AddScoped<OrdenService>();
 builder.Services.AddScoped<OrdenNuevaService>();
 builder.Services.AddScoped<ProductoService>();
 builder.Services.AddScoped<TransportistaService>();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -64,6 +74,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+
+app.UseCors("PermitirTodo");
 
 app.MapControllers();
 
