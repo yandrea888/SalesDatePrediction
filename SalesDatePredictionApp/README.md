@@ -1,59 +1,124 @@
-# SalesDatePredictionApp
+El proyecto principal está construido en .NET 8.0, su nombre es SalesDatePrediction.Api
+Dicho proyecto tiene seis capas principales:
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.6.
+📂 SalesDatePrediction.Api
+  📂 Controllers          			-> Controladores Web API 
+  📂 Dtos                 			-> Objetos de transferencia de datos 
+  📂 Repositories         			-> Repositorios para acceder a la base de datos
+  📂 Services             			-> Lógica de negocio
+  📂 SalesDatePrediction.Tests        	-> Proyecto para pruebas unitarias
+  📂 SalesDatePredictionApp        	-> Proyecto para front en Angular
 
-## Development server
+En el proyecto se usaron los principiso solid de la siguiente manera: 
 
-To start a local development server, run:
+S – Single Responsibility Principle (SRP)
+Cada clase tiene una sola responsabilidad:
 
-```bash
-ng serve
-```
+Controller: Gestiona las solicitudes HTTP y devuelve las respuestas.
+Service: Contiene la lógica de negocio (reglas, validaciones).
+Repository: Se encarga exclusivamente del acceso a la base de datos.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+O – Open/Closed Principle (OCP)
+Las clases están abiertas para extensión, pero cerradas para modificación.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Por ejemplo con los servicios; puedes extender su funcionalidad sin alterar el controlador.
 
-```bash
-ng generate component component-name
-```
+D – Dependency Inversion Principle (DIP)
+Estoy inyectando las dependencias (por ejempolo en EmpleadoRepository y EmpleadoService) a través del constructor, en lugar de crearlas directamente en las clases (new).
+Esto hace que el código sea más flexible y testeable. Además, permite cambiar la implementación de esas dependencias sin modificar el controlador o el servicio.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+El proyecto se ejecuta abriendo el archivo **SalesDatePrediction.Api.sln** en **Visual Studio 2022**.  
 
-```bash
-ng generate --help
-```
+Para ejecutarlo:  
+1. Abre **Visual Studio 2022**.  
+2. Ve a **Archivo > Abrir > Proyecto/Solución**.  
+3. Selecciona el archivo `SalesDatePrediction.Api.sln`.  
+4. Una vez cargado, presiona `F5` o haz clic en el botón **Ejecutar** para iniciar la aplicación.  
 
-## Building
+API Endpoints: 
 
-To build the project run:
+Al ejecutar el proyecto, la API se abre automáticamente en la siguiente ruta:
 
-```bash
-ng build
-```
+Swagger UI: http://localhost:5189/swagger/index.html
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+A continuación, se detallan los endpoints disponibles:
 
-## Running unit tests
+Cliente
+GET /api/Cliente – Obtiene la lista de clientes.
+Customer
+GET /api/Customer – Obtiene la lista de clientes (creado para realizar las pruebas unitarias).
+Empleado
+GET /api/Empleado – Obtiene la lista de empleados.
+Orden
+GET /api/Orden/{customerId} – Obtiene las órdenes de un cliente específico.
+OrdenNueva
+POST /api/OrdenNueva – Crea una nueva orden.
+Producto
+GET /api/Producto – Obtiene la lista de productos.
+Transportista
+GET /api/Transportista – Obtiene la lista de transportistas.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Pruebas Unitarias
 
-```bash
-ng test
-```
+En el proyecto SalesDatePrediction.Tests, se implementaron pruebas unitarias utilizando xUnit para validar el comportamiento de los controladores de la API.
 
-## Running end-to-end tests
+Pruebas Implementadas:
+Se logró implementar una prueba para el controlador CustomerController:
+GetCustomers_ReturnsListOfCustomers
+Verifica que el método GetCustomers devuelva una lista de clientes y se asegura que la respuesta sea un OkObjectResult con una lista no vacía de clientes.
 
-For end-to-end (e2e) testing, run:
+Pruebas Pendientes
+Por falta de tiempo y experiencia en pruebas unitarias, no logré completar las pruebas para los otros controladores (EmpleadoController, OrdenController, etc.). Sin embargo, se la estructura y enfoque utilizados en la prueba realizada pueden servir de base para futuras implementaciones.
 
-```bash
-ng e2e
-```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Proyecto Frontend en Angular: SalesDatePredictionApp
 
-## Additional Resources
+Angular CLI: 19.1.6
+Node: 18.20.4
+Package Manager: npm 10.7.0
+OS: win32 x64
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Descripción
+Este proyecto es un frontend desarrollado en Angular que permite gestionar clientes y órdenes de compra. Se conecta con una API REST para obtener datos de clientes y crear nuevas órdenes.
+
+Tecnologías utilizadas
+Framework: Angular 19.1.5
+Lenguaje: TypeScript
+Gestión de paquetes: npm
+Servidor HTTP: Angular CLI
+Manejo de formularios: Reactive Forms
+Cliente HTTP: HttpClientModule
+Ruteo: Angular Router
+Paginación: ngx-pagination
+Estilos: Angular Material
+Formatos de fecha: DatePipe
+
+Estructura del Proyecto:
+
+ClienteService: Servicio que se encarga de obtener los clientes desde la API.
+NuevaOrdenComponent: Formulario para crear una nueva orden con validaciones y envío de datos al backend.
+ClienteComponent: Componente para listar clientes, buscar y ordenar resultados, y navegar a órdenes.
+OrdenListComponent: Componente que muestra la lista de órdenes de un cliente seleccionado.
+
+Funcionalidades Implementadas:
+
+Búsqueda de clientes: Permite filtrar clientes por nombre utilizando HttpParams (se intentó pero me falla la búsqueda)
+Ordenación de datos: Se puede ordenar la lista de clientes por cualquier columna.
+Paginación: Implementada con ngx-pagination para mejorar la experiencia de usuario.
+Creación de órdenes: Formulario reactivo con validaciones para agregar productos a una orden.
+Manejo de rutas: Se utiliza Router para navegar entre componentes.
+
+Instalación y Ejecución
+Instalar dependencias con:npm install
+Ejecutar el servidor Angular: ng serve
+Acceder a la aplicación en http://localhost:4200.
+
+
+Esta es mi prueba, traté de realizar todo lo solicitado, me hubiera gustado realizar todo el proyecto de pruebas y que el botón de búsqueda me funcionara, y lo voy a seguir trabajando, en el repositorio verán los avances en estos temas (es un reto y me encantan los retos), pero hago la entrega para cumplir con el tiempo pactado. 
+
+
+Mil gracias
+
+Yuly Andrea Morales
+
