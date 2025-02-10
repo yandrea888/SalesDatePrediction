@@ -9,14 +9,6 @@ import { OrdenListComponent } from './orden-list/orden-list.component';
 import { NuevaOrdenComponent } from './nueva-orden/nueva-orden.component';
 
 
-//export const routes: Routes = [
-//  { path: '', component: ClienteComponent },
-//  { path: '', redirectTo: '/ordenes/1', pathMatch: 'full' },
-//  { path: 'ordenes/:customerId', component: OrdenListComponent },
-//  { path: '**', redirectTo: '/ordenes/1' },
-//  { path: 'nueva-orden', component: NuevaOrdenComponent },
-//];
-
 export const routes: Routes = [
   { path: '', component: ClienteComponent },
   { path: 'ordenes/:customerId', component: OrdenListComponent },

@@ -64,7 +64,7 @@ public class OrdenNuevaRepository
                 command.Parameters.AddWithValue("@Discount2", 0.00);
 
                 connection.Open();
-                return (int)command.ExecuteScalar(); // Devuelve el ID de la nueva orden
+                return (int)command.ExecuteScalar(); 
             }
         }
     }

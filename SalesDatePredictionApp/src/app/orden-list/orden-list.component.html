@@ -3,32 +3,32 @@
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <!-- Columna: ID Orden -->
     <ng-container matColumnDef="OrderId">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>ID Orden</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Orden Id</mat-header-cell>
       <mat-cell *matCellDef="let orden">{{ orden.OrderId }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="RequiredDate">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Requerida</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Required Date</mat-header-cell>
       <mat-cell *matCellDef="let orden">{{ orden.RequiredDate | date }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="ShippedDate">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Envío</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Shipped Date</mat-header-cell>
       <mat-cell *matCellDef="let orden">{{ orden.ShippedDate | date }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="ShipName">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Envío</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Ship Name</mat-header-cell>
       <mat-cell *matCellDef="let orden">{{ orden.ShipName }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="ShipAddress">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Dirección Envío</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Ship Address</mat-header-cell>
       <mat-cell *matCellDef="let orden">{{ orden.ShipAddress }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="ShipCity">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Ciudad Envío</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Ship City</mat-header-cell>
       <mat-cell *matCellDef="let orden">{{ orden.ShipCity }}</mat-cell>
     </ng-container>
 

@@ -6,11 +6,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class OrdenService {
-  private apiUrl = 'http://localhost:5189/api/orden';  // Ajusta el puerto si es diferente
+  private apiUrl = 'http://localhost:5189/api/orden';  
 
   constructor(private http: HttpClient) { }
 
   getOrdenesPorCliente(customerId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/${customerId}`);
   }
+
 }

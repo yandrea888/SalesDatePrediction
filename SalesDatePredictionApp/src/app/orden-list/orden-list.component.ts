@@ -50,18 +50,7 @@ export class OrdenListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
-
-  //cargarOrdenes(customerId: number): void {
-  //  this.ordenService.getOrdenesPorCliente(customerId).subscribe({
-  //    next: (ordenes) => {
-  //      this.dataSource.data = ordenes;
-  //    },
-  //    error: (err) => {
-  //      console.error('Error al cargar las órdenes:', err);
-  //    }
-  //  });
-  //}
+  }  
 
   cargarOrdenes(customerId: number): void {
     console.log('Cargando órdenes para el cliente:', customerId);

@@ -47,7 +47,7 @@ export class NuevaOrdenComponent {
         productId: ['', Validators.required],
         unitPrice: ['', [Validators.required, Validators.min(0)]],
         qty: ['', [Validators.required, Validators.min(1)]],
-        discount: [0, [Validators.min(0), Validators.max(1)]],
+        discount: ['', [Validators.min(0), Validators.max(1)]],
       })
     );
   }
