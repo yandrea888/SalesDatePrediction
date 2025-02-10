@@ -1,10 +1,5 @@
-<h2>Lista de Órdenes</h2>
-<div class="table-container">
-  <mat-form-field appearance="outline">
-    <mat-label>Filtrar</mat-label>
-    <input matInput (keyup)="aplicarFiltro($event)" placeholder="Buscar en la tabla">
-  </mat-form-field>
 
+<h4 class="modal-title text-white bg-danger p-3">Customer AHPOP - Orders</h4>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <!-- Columna: ID Orden -->
     <ng-container matColumnDef="OrderId">
@@ -42,4 +37,4 @@
     <!-- Filas de datos -->
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </table>
-</div>
+

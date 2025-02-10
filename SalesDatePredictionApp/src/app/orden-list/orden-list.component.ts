@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -24,6 +24,7 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+
   ],
 })
 export class OrdenListComponent implements OnInit, AfterViewInit {
@@ -32,6 +33,7 @@ export class OrdenListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @Input() customerId: string = '';
 
   constructor(
     private ordenService: OrdenService,
@@ -40,8 +42,8 @@ export class OrdenListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const customerId = +params['customerId'];
-      this.cargarOrdenes(customerId);
+      const id = +params['customerId'];
+      this.cargarOrdenes(id);
     });
   }
 

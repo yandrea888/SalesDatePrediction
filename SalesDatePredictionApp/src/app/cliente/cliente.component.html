@@ -1,11 +1,40 @@
-<h2>Lista de Clientes</h2>
-<ul *ngIf="clientes.length > 0; else noData">
-  <li *ngFor="let cliente of clientes">
-    <strong>{{ cliente.CustomerName }}</strong> -
-    Última orden: {{ cliente.LastOrderDate | date:'shortDate' }} -
-    Próxima orden: {{ cliente.NextPredictedOrder | date:'shortDate' }}
-  </li>
-</ul>
+<h2>Customers</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Customer Name</th>
+      <th scope="col">Last Order Date</th>
+      <th scope="col">Next Predicted Order</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="clientes.length > 0; else noData">
+    <tr *ngFor="let cliente of clientes">
+      <td scope="row">{{ cliente.CustomerName }}</td>
+      <td scope="row">{{ cliente.LastOrderDate | date:'shortDate' }}</td>
+      <td>{{ cliente.NextPredictedOrder | date:'shortDate' }}</td>
+      <td class="orders-modal text-danger" data-bs-toggle="modal" data-bs-target="#ViewOrdersModal" (click)="openOrdersModal(74)">VIEW ORDERS</td>
+      <td class="orders-modal text-success" (click)="newOrderl()">NEW ORDER</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="ViewOrdersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header bg-danger">
+        <h1 class="modal-title text-white fs-5" id="exampleModalLabel">Customer AHPOP - Orders</h1>
+      </div>
+      <div class="modal-body">
+        <app-orden-list [customerId]="selectedCustomerId"></app-orden-list>
+      </div>
+      <a class="modal-body"></a>
+      <div class="modal-footer">
+        <div class="orders-modal text-danger" data-bs-dismiss="modal">CLOSE</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <ng-template #noData>
   <p>No hay clientes disponibles.</p>

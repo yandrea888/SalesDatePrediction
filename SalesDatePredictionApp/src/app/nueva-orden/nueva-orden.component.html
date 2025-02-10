@@ -1,106 +1,102 @@
-<h2>Crear Nueva Orden</h2>
-<form (ngSubmit)="crearOrden()" [formGroup]="nuevaOrdenForm">
+<h4 class="modal-title text-white bg-success p-3">Customer AHPOP - Orders</h4>
+<form (ngSubmit)="crearOrden()" [formGroup]="nuevaOrdenForm" class="container text-center">
   <fieldset>
-    <legend>Información de la Orden</legend>
+    <legend class="mt-2 text-start">Order</legend>
+    <div class="row mb-2">
+      <div class="col">
+        <input id="customerId" formControlName="customerId" type="number" required placeholder="customerId" />
+        <div *ngIf="nuevaOrdenForm.get('customerId')?.invalid && nuevaOrdenForm.get('customerId')?.touched">
+          <small>Customer ID es requerido.</small>
+        </div>
+      </div>
 
-    <div>
-      <label for="customerId">Customer ID</label>
-      <input id="customerId" formControlName="customerId" type="number" required />
-      <div *ngIf="nuevaOrdenForm.get('customerId')?.invalid && nuevaOrdenForm.get('customerId')?.touched">
-        <small>Customer ID es requerido.</small>
+      <div class="col">
+        <input id="employeeId" formControlName="employeeId" type="number" required placeholder="Employee*" />
+        <div *ngIf="nuevaOrdenForm.get('employeeId')?.invalid && nuevaOrdenForm.get('employeeId')?.touched">
+          <small>Employee ID es requerido.</small>
+        </div>
+      </div>
+
+      <div class="col">
+        <input id="shipperId" formControlName="shipperId" type="number" required placeholder="Shipper*" />
+        <div *ngIf="nuevaOrdenForm.get('shipperId')?.invalid && nuevaOrdenForm.get('shipperId')?.touched">
+          <small>Shipper ID es requerido.</small>
+        </div>
       </div>
     </div>
 
-    <div>
-      <label for="employeeId">Employee ID</label>
-      <input id="employeeId" formControlName="employeeId" type="number" required />
-      <div *ngIf="nuevaOrdenForm.get('employeeId')?.invalid && nuevaOrdenForm.get('employeeId')?.touched">
-        <small>Employee ID es requerido.</small>
-      </div>
-    </div>
 
-    <div>
-      <label for="shipperId">Shipper ID</label>
-      <input id="shipperId" formControlName="shipperId" type="number" required />
-      <div *ngIf="nuevaOrdenForm.get('shipperId')?.invalid && nuevaOrdenForm.get('shipperId')?.touched">
-        <small>Shipper ID es requerido.</small>
-      </div>
-    </div>
-
-    <div>
-      <label for="shipName">Ship Name</label>
-      <input id="shipName" formControlName="shipName" type="text" required />
+    <div class="mt-3 mb-4">
+      <input id="shipName" formControlName="shipName" type="text" required placeholder="Ship Name*" />
       <div *ngIf="nuevaOrdenForm.get('shipName')?.invalid && nuevaOrdenForm.get('shipName')?.touched">
         <small>Ship Name es requerido.</small>
       </div>
     </div>
 
-    <div>
-      <label for="shipAddress">Ship Address</label>
-      <input id="shipAddress" formControlName="shipAddress" type="text" required />
-      <div *ngIf="nuevaOrdenForm.get('shipAddress')?.invalid && nuevaOrdenForm.get('shipAddress')?.touched">
-        <small>Ship Address es requerido.</small>
+    <div class="row mb-2">
+      <div class="col">
+        <input id="shipAddress" formControlName="shipAddress" type="text" required placeholder="Ship Address*" />
+        <div *ngIf="nuevaOrdenForm.get('shipAddress')?.invalid && nuevaOrdenForm.get('shipAddress')?.touched">
+          <small>Ship Address es requerido.</small>
+        </div>
+      </div>
+
+      <div class="col">
+        <input id="shipCity" formControlName="shipCity" type="text" required placeholder="Ship City*" />
+        <div *ngIf="nuevaOrdenForm.get('shipCity')?.invalid && nuevaOrdenForm.get('shipCity')?.touched">
+          <small>Ship City es requerido.</small>
+        </div>
+      </div>
+
+      <div class="col">
+        <input id="shipCountry" formControlName="shipCountry" type="text" required placeholder="Ship Country*" />
+        <div *ngIf="nuevaOrdenForm.get('shipCountry')?.invalid && nuevaOrdenForm.get('shipCountry')?.touched">
+          <small>Ship Country es requerido.</small>
+        </div>
       </div>
     </div>
 
-    <div>
-      <label for="shipCity">Ship City</label>
-      <input id="shipCity" formControlName="shipCity" type="text" required />
-      <div *ngIf="nuevaOrdenForm.get('shipCity')?.invalid && nuevaOrdenForm.get('shipCity')?.touched">
-        <small>Ship City es requerido.</small>
-      </div>
-    </div>
 
-    <div>
-      <label for="freight">Freight</label>
-      <input id="freight" formControlName="freight" type="number" required />
+    <div class="mt-3 mb-3">
+      <input id="freight" formControlName="freight" type="number" required placeholder="$ Freight*" />
       <div *ngIf="nuevaOrdenForm.get('freight')?.invalid && nuevaOrdenForm.get('freight')?.touched">
         <small>Freight es requerido.</small>
       </div>
     </div>
 
-    <div>
-      <label for="shipCountry">Ship Country</label>
-      <input id="shipCountry" formControlName="shipCountry" type="text" required />
-      <div *ngIf="nuevaOrdenForm.get('shipCountry')?.invalid && nuevaOrdenForm.get('shipCountry')?.touched">
-        <small>Ship Country es requerido.</small>
-      </div>
-    </div>
   </fieldset>
 
   <fieldset formArrayName="orderDetails">
-    <legend>Detalles del Producto</legend>
+    <legend class="mt-2 text-start">Order Detail</legend>
 
     <div *ngFor="let producto of productos.controls; let i = index" [formGroupName]="i">
-      <h3>Producto {{ i + 1 }}</h3>
 
-      <div>
-        <label for="productId-{{ i }}">Product ID</label>
-        <input id="productId-{{ i }}" formControlName="productId" type="number" required />
+      <div class="mb-3">
+        <input id="productId-{{ i }}" formControlName="productId" type="number" required placeholder="Product*"/>
         <div *ngIf="producto.get('productId')?.invalid && producto.get('productId')?.touched">
           <small>Product ID es requerido.</small>
         </div>
       </div>
 
-      <div>
-        <label for="unitPrice-{{ i }}">Unit Price</label>
-        <input id="unitPrice-{{ i }}" formControlName="unitPrice" type="number" required />
-        <div *ngIf="producto.get('unitPrice')?.invalid && producto.get('unitPrice')?.touched">
-          <small>Unit Price es requerido.</small>
+      <div class="row mb-2">
+        <div class="col">
+          <input id="unitPrice-{{ i }}" formControlName="unitPrice" type="number" required placeholder="$ Unit Price*"/>
+          <div *ngIf="producto.get('unitPrice')?.invalid && producto.get('unitPrice')?.touched">
+            <small>Unit Price es requerido.</small>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <label for="qty-{{ i }}">Quantity</label>
-        <input id="qty-{{ i }}" formControlName="qty" type="number" required />
-        <div *ngIf="producto.get('qty')?.invalid && producto.get('qty')?.touched">
-          <small>Quantity es requerido.</small>
+        <div class="col">
+          <input id="qty-{{ i }}" formControlName="qty" type="number" required placeholder="Quantity*"/>
+          <div *ngIf="producto.get('qty')?.invalid && producto.get('qty')?.touched">
+            <small>Quantity es requerido.</small>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <label for="discount-{{ i }}">Discount</label>
-        <input id="discount-{{ i }}" formControlName="discount" type="number" step="0.01" min="0" max="1" />
+        <div class="col">
+          <input id="discount-{{ i }}" formControlName="discount" type="number" step="0.01" min="0" max="1" placeholder="Discount*"/>
+        </div>
+
       </div>
 
       <button type="button" (click)="eliminarProducto(i)">Eliminar Producto</button>
