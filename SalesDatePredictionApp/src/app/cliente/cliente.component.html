@@ -1,16 +1,15 @@
-<head>  
+<head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <h2>Customers</h2>
-<div class="search-container" style="text-align: right; margin-bottom: 20px;">
+<div class="search-container text-end">
   <input type="text"
          class="form-control"
          placeholder="Search by Customer Name"
          [(ngModel)]="searchTerm"
-         (ngModelChange)="searchClientes()"
-         style="max-width: 300px; display: inline-block;">
-  <i class="fas fa-search"></i> 
+         (ngModelChange)="searchClientes()">
+  <i class="fas fa-search search-icon"></i>
 </div>
 <table class="table">
   <thead>

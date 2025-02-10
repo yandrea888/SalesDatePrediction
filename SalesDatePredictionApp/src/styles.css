@@ -2,3 +2,27 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.search-container {
+  position: absolute;
+  max-width: 300px;
+  display: inline-block;
+  right: 0;
+  bottom: 86%;
+}
+
+  .search-container .search-icon {
+    position: absolute;
+    top: 5px; 
+    right: 5px; 
+    color: #aaa;
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+  .search-container input {
+    width: 100%;
+    padding-right: 40px; 
+  }
+
+

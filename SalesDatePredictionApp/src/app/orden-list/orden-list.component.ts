@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { MatPaginatorModule } from '@angular/material/paginator'; 
 
 
 @Component({
@@ -24,7 +25,7 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-
+    MatPaginatorModule, 
   ],
 })
 export class OrdenListComponent implements OnInit, AfterViewInit {
