@@ -116,6 +116,7 @@ Acceder a la aplicación en http://localhost:4200.
 
 Esta es mi prueba, traté de realizar todo lo solicitado, me hubiera gustado realizar todo el proyecto de pruebas y que el botón de búsqueda me funcionara, y lo voy a seguir trabajando, en el repositorio verán los avances en estos temas (es un reto y me encantan los retos), pero hago la entrega para cumplir con el tiempo pactado. 
 
+Aclaración: había olvidado subir los scripts sql para el segundo punto de la prueba, ya están en el repositorio, aunque en la carpeta repositories estaban para efectos de la aplicación, Mil discúlpas.
 
 Mil gracias
 
